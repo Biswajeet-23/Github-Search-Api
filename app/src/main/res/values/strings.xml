@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Github</string>
+    <string name="enter_the_owner_name">Enter The Owner Name</string>
+    <string name="enter_the_repo_name">Enter The Repo Name</string>
+    <string name="add_repo">Add Repo</string>
+    <string name="add_to_repo">Add To Repo</string>
+</resources>
