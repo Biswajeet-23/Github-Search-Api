@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.androidproject.githubuserapp.MainActivity
 import com.androidproject.githubuserapp.databinding.ActivityDetailsBinding
@@ -48,7 +50,7 @@ class DetailsActivity : AppCompatActivity() {
         //initialising Texts in the UI
         binding.tvTitle.text = "$repoName"
         binding.tvDescription.text = "$description"
-//        binding.tvUrl.text = url
+        binding.tvURL.text = url
 //        binding.tvId.text = "Id: $repoId"
         binding.tvFork.text = "$forkCount"
         binding.tvWatch.text = "$watchCount"
@@ -61,10 +63,10 @@ class DetailsActivity : AppCompatActivity() {
             .circleCrop()
             .into(avatarImage)
 
-//        binding.tvUrl.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-//            ContextCompat.startActivity(this, intent, null)
-//        }
+        binding.tvURL.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            ContextCompat.startActivity(this, intent, null)
+        }
 
         //For creating instance of database and setting the add button
         favouriteAction(repoId, repoName, url, description, starCount, watchCount, forkCount, subscriberCount, avatar, ownerName)
