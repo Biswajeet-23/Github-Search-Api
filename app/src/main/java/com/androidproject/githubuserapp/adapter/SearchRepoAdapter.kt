@@ -15,7 +15,6 @@ import com.androidproject.githubuserapp.model.RepoGithub
 import retrofit2.Callback
 
 //Search Adapter
-
 class SearchRepoAdapter(private val context: Context, private val list: MutableList<RepoGithub>) : RecyclerView.Adapter<SearchRepoAdapter.RepoViewHolder>()
 {
     inner class RepoViewHolder(private val binding: ItemAddRepoCardViewBinding): RecyclerView.ViewHolder(binding.root) {
@@ -38,7 +37,7 @@ class SearchRepoAdapter(private val context: Context, private val list: MutableL
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         val data = list[position]
 
-        holder.bindData(list[position])
+        holder.bindData(data)
 
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, DetailsActivity::class.java)

@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-const val GET_REPOS: String = "search/repositories"
+const val GET_REPOS: String = "/search/repositories"
 
 interface GithubApiInterface {
 
@@ -14,18 +14,18 @@ interface GithubApiInterface {
         "Accept: application/json"
     )
     @GET(GET_REPOS)
-    fun searchRepositories(@Query("q") q: String): Call<GithubResponse>
+    suspend fun searchRepositories(@Query("q") q: String): GithubResponse
 
     @GET(GET_REPOS)
-    fun searchRepositories(
+    suspend fun searchRepositories(
         @Query("q") q: String,
         @Query("per_page") perPage: Int
-    ): Call<GithubResponse>
+    ): GithubResponse
 
     @GET(GET_REPOS)
-    fun searchRepositories(
+    suspend fun searchRepositories(
         @Query("q") searchQuery: String,
         @Query("page") pageIndex: Int,
         @Query("per_page") perPage: Int
-    ): Call<GithubResponse>
+    ): GithubResponse
 }

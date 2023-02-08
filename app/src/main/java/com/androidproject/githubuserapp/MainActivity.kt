@@ -28,7 +28,8 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var list : ArrayList<String>
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +40,17 @@ class MainActivity : AppCompatActivity() {
         editor.putBoolean("isFav", false)
         editor.apply()
 
+        layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView = binding.repoRecyclerView
+
         val dao = AppDatabase.getInstance(this).productDao()
 
-        list = ArrayList()
+
 
         dao.getAllProducts().observe(this){
-            binding.repoRecyclerView.adapter = FavRepoAdapter(this, it)
 
-            list.clear()
-
+            recyclerView.adapter = FavRepoAdapter(this, it)
+            recyclerView.layoutManager = layoutManager
         }
 
         //search repo
