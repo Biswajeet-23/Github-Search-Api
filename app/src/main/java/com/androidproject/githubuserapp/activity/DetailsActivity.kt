@@ -30,7 +30,6 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
 
-
         //creating the reference for image view
         val avatarImage: ImageView = binding.avatarImg
         //Extracting values from intent
