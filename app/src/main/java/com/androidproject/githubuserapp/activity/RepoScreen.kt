@@ -1,6 +1,7 @@
 package com.androidproject.githubuserapp.activity
 
 import android.R
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -32,6 +33,7 @@ class RepoScreen : AppCompatActivity() {
     var pageNumber: Int = 1
     private lateinit var queryKeyword: String
 
+    @SuppressLint("NotifyDataSetChanged", "CommitPrefEdits")
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +43,9 @@ class RepoScreen : AppCompatActivity() {
         //initialize
         recyclerView = binding.recyclerViewRepoScreen
         repoList = mutableListOf()
-        layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         queryKeyword = binding.repoName.text.toString()
         repoAdapter = SearchRepoAdapter(this, repoList)
         recyclerView.adapter = repoAdapter
-
-        //layout
         binding.repoScreenProgressBar.visibility = View.INVISIBLE
 
 
@@ -61,7 +60,6 @@ class RepoScreen : AppCompatActivity() {
             val editor: SharedPreferences.Editor = prefs.edit()
             editor.putString("queryKw", queryKeyword)
             editor.putInt("pageNr", pageNumber)
-            editor.apply()
 
             if (isNetworkConnected()) {
                 retrieveRepositories()
@@ -78,13 +76,14 @@ class RepoScreen : AppCompatActivity() {
     }
     private fun retrieveRepositories() {
         binding.repoScreenProgressBar.visibility = View.VISIBLE
-        //Create a Coroutine scope using a job to be able to cancel when needed
-        val mainActivityJob = Job()
 
         //shared preferences
         val prefs = getSharedPreferences("SharePref", Context.MODE_PRIVATE)
         val prefQueryKeyword = prefs.getString("queryKw", queryKeyword)
         val prefPageNumber = prefs.getInt("pageNr", pageNumber)
+
+        //Create a Coroutine scope using a job to be able to cancel when needed
+        val mainActivityJob = Job()
 
         //Handle exceptions if any
         val errorHandler = CoroutineExceptionHandler { _, exception ->
@@ -121,7 +120,6 @@ class RepoScreen : AppCompatActivity() {
             binding.repoScreenProgressBar.visibility = View.GONE
         }
         binding.repoName.text.clear()
-        isLoading = false
 
     }
 
@@ -140,6 +138,7 @@ class RepoScreen : AppCompatActivity() {
 
     private fun setRecyclerViewScrollListener() {
         scrollListener = object : RecyclerView.OnScrollListener() {
+            @SuppressLint("CommitPrefEdits")
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {

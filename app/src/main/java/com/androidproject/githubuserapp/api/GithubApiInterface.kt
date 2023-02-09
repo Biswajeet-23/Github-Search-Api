@@ -6,12 +6,12 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-const val GET_REPOS: String = "/search/repositories"
+const val GET_REPOS: String = "search/repositories"
 
 interface GithubApiInterface {
 
     @Headers(
-        "Accept: application/json"
+        "Accept: application/vnd.github.v3+json"
     )
     @GET(GET_REPOS)
     suspend fun searchRepositories(@Query("q") q: String): GithubResponse
