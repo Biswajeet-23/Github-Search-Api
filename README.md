@@ -16,7 +16,7 @@ Github Search is an Android application developed using Kotlin programming langu
 - Room Database
 
 ## Installation
-Install the apk file from the given link [app](https://github.com/Biswajeet-23/Github-Search-Api/raw/master/app/src/main/res/APK/app-debug2.apk)
+Install the apk file from the given link [app](https://github.com/Biswajeet-23/Github-Search-Api/raw/master/app/src/main/res/APK/github.apk)
 
 ## Tech Stack
 - Kotlin programming language
